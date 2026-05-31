@@ -10,7 +10,8 @@
 
         @livewireStyles
     </head>
-    <body>
+    <body style = "background : black">
+        <x-navigation />
         {{ $slot }}
 
         @livewireScripts

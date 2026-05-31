@@ -1,53 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MovieMax</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 text-gray-900">
+<x-layouts.app>
+    <main class="container mx-auto px-4 py-8 bg-black min-h-screen">
+        
+        <h1 class="text-3xl font-bold text-white mb-8">Popular Movies</h1>
 
-    <nav class="bg-white shadow p-4 mb-8">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-bold">MovieMax</h1>
-            <!-- contact page as per requirement -->
-            <a href="/contact" class="text-blue-600 hover:underline">Contact</a> 
-        </div>
-    </nav>
-
-    <?php // var_dump($movies);?>
-    <main class="container mx-auto px-4">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
             @foreach($movies as $movie)
-                <div class="bg-white rounded-lg shadow-md overflow-hidden transition hover:shadow-xl">
+                <div class="bg-gray-900 rounded-lg shadow-md overflow-hidden transition hover:scale-105 duration-300">
                     <img src="https://image.tmdb.org/t/p/w500{{$movie['poster_path']}}" 
                          alt="{{ $movie['title'] }}" 
                          class="w-full h-80 object-cover">
+                    
                     <div class="p-4">
-                        <h2 class="text-lg font-bold truncate" title="{{ $movie['title'] }}">{{ $movie['title'] }}</h2>
-                        <p class="text-sm text-gray-600 mb-4">Released: {{$movie['release_date'] }}</p>
-                        <!-- <p>Genres IDS : {{ implode(", ", $movie['genre_ids']) }}  | mvie_id : {{$movie['id']}}</P> -->
-                         <livewire:ui.add-movie-to-favs :movie_id="$movie['id']" :movie_title="$movie['title']"/>
+                        <h2 class="text-lg font-bold text-white truncate" title="{{ $movie['title'] }}">
+                            {{ $movie['title'] }}
+                        </h2>
+                        <p class="text-sm text-gray-400 mb-4">Released: {{$movie['release_date'] }}</p>
+                        
+                        <livewire:ui.add-movie-to-favs :movie_id="$movie['id']" :movie_title="$movie['title']"/>
                     </div>
                 </div>
             @endforeach
         </div>
 
-       <?php $movie = ['id' => 6]; ?>
-
-       
-
         <div class="flex justify-center mt-12 mb-12 space-x-4">
             @if($currentPage > 1)
-                <a href="?page={{ $currentPage - 1 }}" class="px-6 py-2 bg-gray-200 rounded hover:bg-gray-300">Previous</a>
+                <a href="?page={{ $currentPage - 1 }}" 
+                   class="px-6 py-2 bg-gray-800 text-white rounded hover:bg-gray-700">Previous</a>
             @endif
 
             @if($currentPage < 5)
-                <a href="?page={{ $currentPage + 1 }}" class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Next 9 Movies</a>
+                <a href="?page={{ $currentPage + 1 }}" 
+                   class="px-6 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition">Next 9 Movies</a>
             @endif
         </div>
     </main>
-
-</body>
-</html>
+</x-layouts.app>
