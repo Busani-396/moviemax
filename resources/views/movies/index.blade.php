@@ -27,18 +27,16 @@
                     <div class="p-4">
                         <h2 class="text-lg font-bold truncate" title="{{ $movie['title'] }}">{{ $movie['title'] }}</h2>
                         <p class="text-sm text-gray-600 mb-4">Released: {{$movie['release_date'] }}</p>
-                        
-                        <form action="/index" method="POST">
-                            @csrf
-                            <input type="hidden" name="movie_id" value="{{ $movie['id'] }}">
-                            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
-                                Add to Favourites
-                            </button>
-                        </form>
+                        <!-- <p>Genres IDS : {{ implode(", ", $movie['genre_ids']) }}  | mvie_id : {{$movie['id']}}</P> -->
+                         <livewire:ui.add-movie-to-favs :movie_id="$movie['id']" :movie_title="$movie['title']"/>
                     </div>
                 </div>
             @endforeach
         </div>
+
+       <?php $movie = ['id' => 6]; ?>
+
+       
 
         <div class="flex justify-center mt-12 mb-12 space-x-4">
             @if($currentPage > 1)
