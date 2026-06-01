@@ -1,0 +1,46 @@
+services:
+  # The Laravel Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: moviemax-app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    ports:
+      - "8000:8000"  # Laravel
+      - "5173:5173"  # Vite (For CSS/JS HMR)
+    environment:
+      DB_HOST: db
+      DB_DATABASE: moviemax
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      DB_PORT: 3306
+    networks:
+      - moviemax-network
+    depends_on:
+      - db
+
+  # The MySQL Database
+  db:
+    image: mysql:8.0
+    container_name: moviemax-db
+    restart: unless-stopped
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: moviemax
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - moviemax-network
+    volumes:
+      - dbdata:/var/lib/mysql
+
+networks:
+  moviemax-network:
+    driver: bridge
+
+volumes:
+  dbdata:

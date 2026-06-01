@@ -22,12 +22,17 @@ class MovieList
     private function fetchMovies(int $page): array
     {
         try {
-            $response = Http::timeout(5)->get('https://api.themoviedb.org/3/movie/popular', 
+            //Ensuring zero exposure to explicitiz
+            $response = Http::timeout(5)->get( 'https://api.themoviedb.org/3/discover/movie', 
             [
-                'api_key' => env('MOVIE_API_KEY'),
-                'page'    => $page,
-                'language'=> 'en-US',
-                'include_adult'=> 'false'
+                'api_key'                 => env('MOVIE_API_KEY'),
+                'page'                    => $page,
+                'language'                => 'en-US',
+                'sort_by'                 => 'popularity.desc',
+                'include_adult'           => false, 
+                'certification_country'   => 'US',
+                'certification'           => 'G|PG|PG-13', 
+                'include_video'           => false, 
             ]);
 
             if ($response->successful()) {

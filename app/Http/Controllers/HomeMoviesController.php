@@ -24,7 +24,10 @@ class HomeMoviesController extends Controller
         $data = $this->movieHelper->loadMovies($page);
         $results = $data['results'] ?? [];
         
-        $movieCollection = collect($results);
+        $movieCollection = collect($results)
+                            ->filter(function ($movie){ // We say NO to explicitiz
+                                return !($movie['adult'] ?? false);
+                            });
         
         $perPage = 9;
         $maxTotalMovies = 45; 

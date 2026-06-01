@@ -1,4 +1,4 @@
-<x-layouts.app>
+<x-layouts.app :title="'MovieMax App'">
     <livewire:ui.search-movies />
     <main class="container mx-auto px-4 py-8 bg-black min-h-screen">
         <h1 class="text-3xl font-bold text-white mb-8">Popular Movies</h1>
