@@ -111,7 +111,7 @@ http://localhost:8000
 * docker-compose exec app php artisan cache:clear
 
 
-### Local Development Setup (Without Docker)
+# Local Development Setup (Without Docker)
 
 1. ## Prerequisites
 
