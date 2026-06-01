@@ -58,6 +58,8 @@ docker-compose exec app php artisan key:generate
 
 ### 6. Run Database Migrations and Seeders
 
+Automated Seeding: When you run docker-compose exec app php artisan migrate:fresh --seed, the system automatically runs the UserSeeder to add a default test account to allow you to immediately test the "Favourites" functionality.
+
 ```bash
 docker-compose exec app php artisan migrate --seed
 ```
