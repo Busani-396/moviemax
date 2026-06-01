@@ -14,6 +14,8 @@ new class extends Component
 
     public function remove()
     {
+        $this->authorize('delete', $this->favourite);
+        
         $this->favourite->delete();
         $this->js("window.location.reload()");
     }
