@@ -109,3 +109,39 @@ http://localhost:8000
 ## If you make changes to your .env file or notice cached issues, run:
 * docker-compose exec app php artisan config:clear
 * docker-compose exec app php artisan cache:clear
+
+
+### Local Development Setup (Without Docker)
+
+1. ## Prerequisites
+
+    PHP: Version 8.2 or higher.  
+
+    Composer: The PHP dependency manager.  
+
+    Node.js & NPM: For compiling frontend assets.  
+
+    MySQL: A database server installed and running locally.  
+
+2. ## Installation
+
+    Clone the repository: git clone [https://github.com/Busani-396/moviemax.git](https://github.com/Busani-396/moviemax.git).  
+
+    Navigate into the directory: cd moviemax.  
+
+    Install PHP dependencies: composer install.  
+
+    Install frontend dependencies: npm install.  
+
+3. ## Environment Configuration
+
+    Copy the example environment file: cp .env.example .env.  
+
+    Generate the application key: php artisan key:generate.  
+
+    Update your .env file with your local database credentials and TMDB API key:
+
+**4. Running the Application**
+*   Run database migrations and seeders: `php artisan migrate --seed`
+*   Compile frontend assets: `npm run dev`
+*   Start the local server: `php artisan serve`
