@@ -1,59 +1,111 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# MovieMax Application
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+MovieMax is a movie discovery application built with **Laravel**, **Livewire**, **Tailwind CSS**, and **Docker**. The application integrates with The Movie Database (TMDB) API to provide movie information and recommendations.
 
-## About Laravel
+## Prerequisites
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Before getting started, ensure you have the following installed:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+* Docker
+* Docker Compose
+* A TMDB API Key
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Getting Started
 
-## Learning Laravel
+Follow the steps below to set up the application locally.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 1. Clone the Repository
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+git clone https://github.com/Busani-396/moviemax.git
+cd moviemax
+```
 
-## Laravel Sponsors
+### 2. Configure Environment Variables
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Copy the example environment file:
 
-### Premium Partners
+```bash
+cp .env.example .env
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Update the `.env` file and add your TMDB API key:
 
-## Contributing
+```env
+MOVIE_API_KEY=your_api_key_here
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 3. Build and Start Docker Containers
 
-## Code of Conduct
+```bash
+docker-compose up -d --build
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 4. Install Application Dependencies
 
-## Security Vulnerabilities
+Install PHP and frontend dependencies:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+docker-compose exec app composer install
+docker-compose exec app npm install
+```
 
-## License
+### 5. Generate Application Key
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+docker-compose exec app php artisan key:generate
+```
+
+### 6. Run Database Migrations and Seeders
+
+```bash
+docker-compose exec app php artisan migrate --seed
+```
+
+If you need to reset the database and reseed it:
+
+```bash
+docker-compose exec app php artisan migrate:fresh --seed
+```
+
+## Running the Application
+
+### Start the Laravel Development Server
+
+```bash
+docker-compose exec app php artisan serve --host=0.0.0.0 --port=8000
+```
+
+### Start the Vite Development Server
+
+```bash
+docker-compose exec app npm run dev
+```
+
+## Accessing the Application
+
+Once the services are running, open your browser and navigate to:
+
+```text
+http://localhost:8000
+```
+
+## Technology Stack
+
+* Laravel
+* Livewire
+* Tailwind CSS
+* Docker
+* MySQL
+* TMDB API
+
+## Notes
+
+* Ensure your TMDB API key is valid before running the application.
+* Docker containers must be running before executing Artisan, Composer, or NPM commands.
+* The application uses seeded data for initial setup and testing.
+
+
+## If you make changes to your .env file or notice cached issues, run:
+* docker-compose exec app php artisan config:clear
+* docker-compose exec app php artisan cache:clear
