@@ -1,6 +1,6 @@
 # MovieMax Application
 
-MovieMax is a movie discovery application built with **Laravel**, **Livewire**, **Tailwind CSS**, and **Docker**. The application integrates with The Movie Database (TMDB) API to provide movie information and recommendations.
+Application built with **Laravel**, **Livewire**, **Tailwind CSS**, and **Docker**. The application integrates with The Movie Database (TMDB) API to provide movie information and recommendations.
 
 ## Prerequisites
 
