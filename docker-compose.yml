@@ -1,5 +1,4 @@
 services:
-  # The Laravel Application
   app:
     build:
       context: .
@@ -10,8 +9,8 @@ services:
     volumes:
       - .:/var/www
     ports:
-      - "8000:8000"  # Laravel
-      - "5173:5173"  # Vite (For CSS/JS HMR)
+      - "8000:8000"  
+      - "5173:5173"  
     environment:
       DB_HOST: db
       DB_DATABASE: moviemax
@@ -23,7 +22,6 @@ services:
     depends_on:
       - db
 
-  # The MySQL Database
   db:
     image: mysql:8.0
     container_name: moviemax-db
