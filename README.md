@@ -145,3 +145,14 @@ http://localhost:8000
 *   Run database migrations and seeders: `php artisan migrate --seed`
 *   Compile frontend assets: `npm run dev`
 *   Start the local server: `php artisan serve`
+
+
+# Why I Chose The PHP language
+
+*    PHP: I selected this language because I have deep understanding and leveraged the Laravel framework, which provided built-in features that greatly accelerated development and ensured a secure, structured codebase
+
+*    Database (MySQL): Chosen relational database management system for its good integration with Laravel's ORM and ease of use  
+
+*    Livewire & Tailwind CSS: These were chosen to provide a dynamic, reactive user interface while maintaining high development speed  
+
+*    Docker: Implemented to contain the app within the environment, ensuring that the application is fully accessible and portable for submission
