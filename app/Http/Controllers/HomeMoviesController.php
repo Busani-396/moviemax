@@ -4,26 +4,40 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Helpers\FetchMovieList\MovieList;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class HomeMoviesController extends Controller
 {
+    protected $movieHelper;
+
+    public function __construct(MovieList $movieHelper)
+    {
+        $this->movieHelper = $movieHelper;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
         $page = $request->query('page', 1);
-        $movieHelper = new MovieList();
-        $data = $movieHelper->loadMovies($page);
+        $data = $this->movieHelper->loadMovies($page);
+        $results = $data['results'] ?? [];
         
-        $movies = array_slice($data['results'] ?? [], 0, 9);
-
-        //dd($movies); exit;
+        $movieCollection = collect($results);
         
-        return view('movies.index',[
-            'movies' => $movies,
-            'currentPage' => $page
-        ]);
+        $perPage = 9;
+        $maxTotalMovies = 45; 
+        //4 movie, 5pages
+        $movies = new LengthAwarePaginator(
+            $movieCollection->take($perPage), 
+            $maxTotalMovies, 
+            $perPage, 
+            $page,
+            ['path' => $request->url(), 'query' => $request->query()]
+        );
+        
+        return view('movies.index', ['movies' => $movies]);
     }
 
     /**

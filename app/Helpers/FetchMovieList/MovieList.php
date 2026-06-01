@@ -26,7 +26,8 @@ class MovieList
             [
                 'api_key' => env('MOVIE_API_KEY'),
                 'page'    => $page,
-                'language'=> 'en-US'
+                'language'=> 'en-US',
+                'include_adult'=> 'false'
             ]);
 
             if ($response->successful()) {

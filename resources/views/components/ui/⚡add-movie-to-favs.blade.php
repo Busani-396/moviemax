@@ -3,12 +3,14 @@
 use Livewire\Component;
 use App\Services\Movies\FavouritesList\FavouriteList;
 use App\Models\Favourites;
+use Illuminate\Support\Facades\Log;
 
 new class extends Component {
 
     public int $movie_id;
     public string $movie_title;
     public bool $isAdded;
+    public ?string $authMessage = null; 
 
     public function mount(int $movie_id, string $movie_title)
     {
@@ -23,6 +25,10 @@ new class extends Component {
     public function save(FavouriteList $service)
     {
         try{
+            if (!auth()->check()) {
+                $this->authMessage = "Please log in to save to you favourites";
+                return;
+            }
             $validated = $this->validate([
                 'movie_id' => 'required|integer',
                 'movie_title' => 'required|string|max:255',
@@ -38,7 +44,8 @@ new class extends Component {
             }
 
         }catch(\Exception $e){
-            var_dump('Too many problemz here ' . __FILE__ . ' on line ' . __LINE__ . $e->getMessage()); exit;
+            Log::error('Favourites error: ' . $e->getMessage());
+            $this->authMessage = "An error occurred. Please try again.";
         }
     }
 };
@@ -53,5 +60,10 @@ new class extends Component {
         <button wire:click="save" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
             Add to Favourites
         </button>
+    @endif
+    @if($authMessage)
+        <p class="text-red-500 text-sm mt-2 text-center animate-pulse">
+            {{ $authMessage }}
+        </p>
     @endif
 </div>
