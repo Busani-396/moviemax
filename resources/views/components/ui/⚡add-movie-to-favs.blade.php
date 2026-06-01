@@ -2,6 +2,7 @@
 
 use Livewire\Component;
 use App\Services\Movies\FavouritesList\FavouriteList;
+use App\Models\Favourites;
 
 new class extends Component {
 
@@ -14,6 +15,9 @@ new class extends Component {
         $this->movie_id = $movie_id;
         $this->movie_title = $movie_title;
         $this->isAdded = false;
+        $this->isAdded = auth()->check() && Favourites::where('user_id', auth()->id())
+        ->where('movie_id', $this->movie_id)
+        ->exists();
     }
 
     public function save(FavouriteList $service)
@@ -26,15 +30,15 @@ new class extends Component {
 
             $data = [
                 'movie_id'=> $validated['movie_id'],
-                'movie_title'=> $validated['movie_title'],
+                'title'=> $validated['movie_title'],
             ];
 
-            if ($service->addToFavsList($data)){
+            if($service->addToFavsList($data)){
                 $this->isAdded = true;
             }
 
         }catch(\Exception $e){
-            var_dump('Too many problem here ' . __FILE__ . ' on line ' . __LINE__ . $e->getMessage()); exit;
+            var_dump('Too many problemz here ' . __FILE__ . ' on line ' . __LINE__ . $e->getMessage()); exit;
         }
     }
 };

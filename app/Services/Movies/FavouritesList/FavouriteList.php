@@ -18,6 +18,8 @@ class FavouriteList
     {
         $data['user_id'] = $this->user_id;
 
+        //var_dump($data); exit;
+
         if (!$this->alreadyAddedOnFavsList($data['movie_id'])){
             return (bool) Favourites::create($data);
         }

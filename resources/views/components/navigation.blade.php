@@ -6,7 +6,7 @@
             <a href="/contact" class="text-blue-600 hover:underline">Contact</a>
             
             @auth
-                <a href="/favourites" class="text-gray-600 hover:text-black">My Favourites</a>
+                <a href="/favourites" class="text-blue-600 hover:underline">My Favourites</a>
                 <form method="POST" action="{{ route('logout') }}" class="inline">
                     @csrf
                     <button type="submit" class="text-red-600 hover:underline">Logout</button>

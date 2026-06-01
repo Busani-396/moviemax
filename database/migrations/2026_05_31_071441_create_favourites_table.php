@@ -11,8 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
+        /*
+        * This table is more like a metadata storage, this way, i dont have to always perfom 
+        * http requests just to get these details 
+        */
+
         Schema::create('favourites', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
+            $table->integer('movie_id');
+            $table->string('title');
+            $table->string('poster_path')->nullable();
             $table->timestamps();
         });
     }
